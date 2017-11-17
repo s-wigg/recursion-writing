@@ -1,35 +1,90 @@
 # Authoring recursive algorithms. Add comments including time and space complexity for each method.
 def factorial(n)
-  puts "Not implemented."
+  return 1 if n == 0
+  return n * factorial(n - 1)
 end
 
 def reverse(s)
-  puts "Not implemented."
+  return s if s.length <= 1
+  new_s = ""
+  new_s << s[-1] + reverse(s[0..-2])
 end
 
 def reverse_inplace(s)
-  puts "Not implemented."
+  return s if s.length <= 1
+  return reverse_inplace_recursive(s, 0, (s.length - 1))
+end
+
+def reverse_inplace_recursive(s, index1, index2)
+  return s if index2 <= index1
+  temp = s[index1]
+  s[index1] = s[index2]
+  s[index2] = temp
+  index1 += 1
+  index2 -= 1
+  return reverse_inplace_recursive(s, index1, index2)
 end
 
 def bunny(n)
-  puts "Not implemented."
+  return 0 if n == 0
+  return 2 + bunny( n - 1 )
 end
 
 def nested(s)
-  puts "Not implemented."
+  return true if s.length == 0
+  unless s[0] == "(" && s[-1] == ")"
+    return false
+  end
+  nested(s[1..-2])
 end
 
 def search(array, value)
-  puts "Not implemented."
+  return false if array.length == 0
+  if array.shift == value
+    return true
+  else
+    search(array,value)
+  end
 end
 
+# no new string
 def is_palindrome(s)
-  puts "Not implemented."
+  return true if s.length <= 1
+  return pal(s, 0, (s.length - 1))
 end
+
+def pal(s, index1, index2)
+  if index2 <= index1
+    return true
+  end
+  if s[index1] != s[index2]
+    return false
+  else
+    index1 += 1
+    index2 -= 1
+  end
+  return pal(s, index1, index2)
+end
+
+
+# uses wrapper method
 
 def digit_match(n, m)
-  puts "Not implemented."
+  return match(n, m, 0)
 end
+
+def match(n, m, count)
+  if n <= 0 || m <= 0
+    return count
+  end
+  if n % 10 == m % 10
+    count += 1
+  end
+  return match((n / 10), (m / 10), count)
+end
+
+
+
 
 # Factorial Tests
 raise "factorial broke - factorial(4)" unless factorial(4) == 24
