@@ -1,20 +1,33 @@
 # Authoring recursive algorithms. Add comments including time and space complexity for each method.
+
+# Shruti - I'm very not confident I understand time and space complexity when it comes to recursion so please definitely let me know if I'm wrong/not stating any of these clearly. Thanks!
+
+# time complexity: O(n) because requires n (maybe really n - 1 but simpilfies to n??) number of stack calls
+# space complexity: O(n)
+
 def factorial(n)
   return 1 if n == 0
   return n * factorial(n - 1)
 end
 
+# time complexity: O(n) because requires n stack calls where n is the number of char in the string
+# space complexity: It will take n number of stack calls, and then also creates a new string, so I think it would be n + n simplifying to O(n)
 def reverse(s)
   return s if s.length <= 1
   new_s = ""
   new_s << s[-1] + reverse(s[0..-2])
 end
 
+
+# time complexity: Will make O(n/2) number of stack calls where n is the number of char in the string. The method being called recursively has a time complexity of O(1) but calling something constant n/2 times simplifies to O(n) or linear
+# space complexity: O(1) or constant
 def reverse_inplace(s)
   return s if s.length <= 1
   return reverse_inplace_recursive(s, 0, (s.length - 1))
 end
 
+# time complexity: O(1) or constant
+# space complexity: O(1) uses a few variables for auxillary storage that will be the same size regardless of size of input string
 def reverse_inplace_recursive(s, index1, index2)
   return s if index2 <= index1
   temp = s[index1]
@@ -25,11 +38,15 @@ def reverse_inplace_recursive(s, index1, index2)
   return reverse_inplace_recursive(s, index1, index2)
 end
 
+# time complexity: O(n)
+# space complexity: O(n)
 def bunny(n)
   return 0 if n == 0
   return 2 + bunny( n - 1 )
 end
 
+# time complexity: worst case, the time complexity will require n/2 stack calls where n is the number of char in the string which simplifies to O(n)
+# space complexity: O(n) based on number of stack calls required
 def nested(s)
   return true if s.length == 0
   unless s[0] == "(" && s[-1] == ")"
@@ -38,6 +55,8 @@ def nested(s)
   nested(s[1..-2])
 end
 
+# time complexity: worst case is O(n) because a stack call would be required for every element in the array
+# space complexity: O(n) based on the number of stack calls
 def search(array, value)
   return false if array.length == 0
   if array.shift == value
@@ -48,11 +67,16 @@ def search(array, value)
 end
 
 # no new string
+
+# time complexity: worst case, the time complexity will require n/2 stack calls where n is the number of char in the string which simplifies to O(n)
+# space complexity: O(n) based on number of stack calls required
 def is_palindrome(s)
   return true if s.length <= 1
   return pal(s, 0, (s.length - 1))
 end
 
+# time complexity: O(1) or constant
+# space complexity: O(1) uses a few variables for auxillary storage that will be the same size regardless of size of input string
 def pal(s, index1, index2)
   if index2 <= index1
     return true
@@ -69,6 +93,8 @@ end
 
 # uses wrapper method
 
+# time complexity: worst case is O(n) because a stack call would be required for every digit of the shorter number
+# space complexity: O(n) based on the number of stack calls
 def digit_match(n, m)
   return match(n, m, 0)
 end
